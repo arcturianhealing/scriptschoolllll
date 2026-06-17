@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="robots" content="index, follow"> 
+<meta name="googlebot" content="index, follow"> 
+<meta name="bingbot" content="index, follow">
+<title>Script School — Learn Screenwriting from Industry Professionals</title>
+<meta name="description" content="Script School offers online screenwriting courses, mentorship, screenplay consultations, and youth filmmaking programs. Learn from working industry professionals." />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fraunces@5.0.18/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.16/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.18/index.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --ink: #0f0e0c;
+    --cream: #f4f1ea;
+    --cream-2: #ebe6db;
+    --accent: #d94f2a;
+    --accent-dark: #b83d1d;
+    --muted: #6b665c;
+    --line: #d9d3c5;
+  }
+  
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  
+  .serif { font-family: 'Fraunces', serif; font-weight: 400; letter-spacing: -0.02em; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  
+  /* Grain pattern overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(15,14,12,0.04) 1px, transparent 0);
+    background-size: 24px 24px;
+    z-index: 1;
+    opacity: 0.6;
+  }
+  
+  /* Top Bar */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(12px);
+    background: rgba(244,241,234,0.75);
+    border-bottom: 1px solid var(--line);
+  }
+  
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .logo-mark {
+    width: 28px; height: 28px;
+    background: var(--ink);
+    color: var(--cream);
+    display: grid;
+    place-items: center;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 4px;
+  }
+  
+  .topbar .cta {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 10px 20px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .topbar .cta:hover { background: var(--accent); transform: translateY(-1px); }
+  
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    padding: 140px 32px 80px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    overflow: hidden;
+  }
+  
+  .hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%; }
+  
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.5);
+    margin-bottom: 28px;
+  }
+  .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 8vw, 120px);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 32px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+  
+  .hero-lead {
+    font-size: clamp(16px, 1.6vw, 20px);
+    max-width: 620px;
+    color: var(--muted);
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+  
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary, .btn-ghost {
+    padding: 16px 28px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-primary { background: var(--ink); color: var(--cream); }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--cream); }
+  
+  .hero-meta {
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .hero-meta .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 44px;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .hero-meta .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  
+  /* Film strip decorative */
+  .film-strip {
+    position: absolute;
+    right: -40px;
+    top: 120px;
+    width: 140px;
+    opacity: 0.4;
+    z-index: 1;
+  }
+  
+  /* Marquee */
+  .marquee {
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--cream-2);
+    padding: 20px 0;
+    position: relative;
+    z-index: 2;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 60px;
+    animation: scroll 40s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-track span {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-style: italic;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 60px;
+  }
+  .marquee-track span::after {
+    content: '✦';
+    color: var(--accent);
+    font-style: normal;
+  }
+  @keyframes scroll {
+    to { transform: translateX(-50%); }
+  }
+  
+  /* Section base */
+  section { position: relative; z-index: 2; padding: 100px 32px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+  
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+  
+  .section-sub {
+    max-width: 640px;
+    color: var(--muted);
+    font-size: 17px;
+    margin-bottom: 56px;
+  }
+  
+  /* Course Cards */
+  .courses {
+    background: var(--cream);
+  }
+  
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+  }
+  
+  .card {
+    background: var(--cream-2);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px -24px rgba(15,14,12,0.25);
+    border-color: var(--ink);
+  }
+  
+  .card-img {
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    position: relative;
+    background: var(--ink);
+  }
+  .card-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .card:hover .card-img img { transform: scale(1.06); }
+  
+  .card-tag {
+    position: absolute;
+    top: 16px; left: 16px;
+    background: var(--cream);
+    color: var(--ink);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  
+  .card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+  
+  .card-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  
+  .card-meta {
+    list-style: none;
+    margin-bottom: 20px;
+    flex: 1;
+  }
+  .card-meta li {
+    font-size: 14px;
+    color: var(--muted);
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--line);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .card-meta li::before {
+    content: '—';
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .price {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  .view-btn {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 10px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.25s ease;
+  }
+  .view-btn:hover { background: var(--accent); }
+  .view-btn .arrow { transition: transform 0.25s ease; }
+  .view-btn:hover .arrow { transform: translateX(3px); }
+  
+  /* Programs Grid */
+  .programs {
+    background: var(--ink);
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .programs::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 2px 2px, rgba(244,241,234,0.06) 1px, transparent 0);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+  .programs .section-label { color: rgba(244,241,234,0.6); }
+  .programs .section-label::before { background: var(--accent); }
+  .programs .section-sub { color: rgba(244,241,234,0.65); }
+  
+  .program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: rgba(244,241,234,0.12);
+    border: 1px solid rgba(244,241,234,0.12);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .program-block {
+    background: var(--ink);
+    padding: 32px;
+  }
+  .program-block h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .program-block h3::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .program-block ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .program-block ul a {
+    color: rgba(244,241,234,0.75);
+    text-decoration: none;
+    font-size: 15px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(244,241,234,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.25s ease;
+  }
+  .program-block ul a:hover {
+    color: var(--cream);
+    padding-left: 8px;
+    border-color: var(--accent);
+  }
+  .program-block ul a::after {
+    content: '→';
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    color: var(--accent);
+  }
+  .program-block ul a:hover::after { opacity: 1; }
+  
+  /* Article Section */
+  .article {
+    background: var(--cream);
+  }
+  
+  .article-wrap {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 64px;
+    align-items: start;
+  }
+  
+  @media (max-width: 900px) {
+    .article-wrap { grid-template-columns: 1fr; }
+  }
+  
+  .article-body h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 48px 0 20px;
+  }
+  .article-body h2:first-child { margin-top: 0; }
+  
+  .article-body h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 40px 0 16px;
+    letter-spacing: -0.01em;
+  }
+  
+  .article-body p {
+    margin-bottom: 18px;
+    font-size: 16px;
+    color: #2a2824;
+    line-height: 1.75;
+  }
+  
+  .article-body ul {
+    margin: 16px 0 24px 20px;
+  }
+  .article-body ul li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+    color: #2a2824;
+  }
+  
+  .article-body a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .article-body a:hover {
+    color: var(--accent-dark);
+    text-decoration-thickness: 2px;
+  }
+  
+  .article-body .dropcap::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 68px;
+    float: left;
+    line-height: 0.9;
+    padding: 6px 12px 0 0;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  
+  .article-body blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 12px 24px;
+    margin: 32px 0;
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--ink);
+    background: var(--cream-2);
+    border-radius: 0 8px 8px 0;
+  }
+  
+  .article-sidebar {
+    position: sticky;
+    top: 100px;
+  }
+  .sidebar-card {
+    background: var(--cream-2);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+  .sidebar-card h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .sidebar-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .sidebar-card ul a {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: block;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+  .sidebar-card ul a:hover {
+    background: var(--cream);
+    border-color: var(--line);
+    transform: translateX(3px);
+  }
+  
+  .sidebar-cta {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 16px;
+    padding: 28px;
+  }
+  .sidebar-cta h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .sidebar-cta p { color: rgba(244,241,234,0.7); font-size: 14px; margin-bottom: 18px; }
+  .sidebar-cta a {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--cream);
+    padding: 12px 20px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.25s;
+  }
+  .sidebar-cta a:hover { background: var(--cream); color: var(--ink); }
+  
+  /* FAQ */
+  .faq {
+    background: var(--cream-2);
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 880px;
+  }
+  details {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 24px;
+    transition: all 0.25s ease;
+  }
+  details[open] {
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
+  }
+  summary {
+    cursor: pointer;
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: '+';
+    font-size: 24px;
+    font-weight: 300;
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  details[open] summary::after {
+    content: '−';
+    color: var(--accent);
+  }
+  details p {
+    margin-top: 16px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(244,241,234,0.8);
+  }
+  details:not([open]) p { color: var(--muted); }
+  
+  /* Contact */
+  .contact {
+    background: var(--cream);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 48px;
+    align-items: stretch;
+  }
+  @media (max-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+  
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  
+  .contact-item {
+    display: flex;
+    gap: 16px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+  .contact-icon {
+    width: 48px; height: 48px;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    font-size: 20px;
+  }
+  .contact-item h5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .contact-item a, .contact-item p {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    color: var(--ink);
+    text-decoration: none;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+  .contact-item a:hover { color: var(--accent); }
+  
+  .map-wrap {
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    min-height: 460px;
+    background: var(--cream-2);
+    position: relative;
+  }
+  .map-wrap iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 460px;
+    display: block;
+    filter: grayscale(0.3) contrast(1.05);
+  }
+  
+  /* Footer */
+  footer {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 80px 32px 32px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .footer-top {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    display: grid;
+    grid-template-columns: 1.3fr repeat(3, 1fr);
+    gap: 48px;
+  }
+  @media (max-width: 900px) {
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .footer-top { grid-template-columns: 1fr; }
+  }
+  
+  .footer-brand .logo { color: var(--cream); margin-bottom: 20px; }
+  .footer-brand .logo-mark { background: var(--cream); color: var(--ink); }
+  .footer-brand p { color: rgba(244,241,234,0.65); font-size: 14px; max-width: 300px; line-height: 1.6; }
+  
+  .footer-col h6 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(244,241,234,0.5);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul a {
+    color: rgba(244,241,234,0.85);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+  .footer-col ul a:hover { color: var(--accent); padding-left: 4px; }
+  
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 32px;
+    border-top: 1px solid rgba(244,241,234,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-bottom p {
+    color: rgba(244,241,234,0.5);
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .socials { display: flex; gap: 12px; }
+  .socials a {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(244,241,234,0.2);
+    display: grid;
+    place-items: center;
+    color: var(--cream);
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+  .socials a:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+  .socials svg { width: 16px; height: 16px; }
+  
+  .big-script {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 7vw, 96px);
+    font-style: italic;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: rgba(244,241,234,0.9);
+    font-weight: 300;
+  }
+  .big-script span { color: var(--accent); }
+  
+  /* Fade in */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .fade-in.visible { opacity: 1; transform: none; }
+  
+  @media (max-width: 720px) {
+    .topbar { padding: 14px 20px; }
+    section { padding: 70px 20px; }
+    .hero { padding: 120px 20px 60px; }
+    footer { padding: 60px 20px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="https://scriptschool.org/" class="logo">
+    <span class="logo-mark">S</span>
+    <span>Script School</span>
+  </a>
+  <a href="https://scriptschool.org/courses/" class="cta">
+    Enroll Now <span>→</span>
+  </a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- Film strip decor -->
+  <svg class="film-strip" viewBox="0 0 100 600" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="100" height="600" fill="none" stroke="#0f0e0c" stroke-width="1"/>
+    <g fill="#0f0e0c">
+      <rect x="8" y="20" width="12" height="16" rx="2"/>
+      <rect x="80" y="20" width="12" height="16" rx="2"/>
+      <rect x="8" y="80" width="12" height="16" rx="2"/>
+      <rect x="80" y="80" width="12" height="16" rx="2"/>
+      <rect x="8" y="140" width="12" height="16" rx="2"/>
+      <rect x="80" y="140" width="12" height="16" rx="2"/>
+      <rect x="8" y="200" width="12" height="16" rx="2"/>
+      <rect x="80" y="200" width="12" height="16" rx="2"/>
+      <rect x="8" y="260" width="12" height="16" rx="2"/>
+      <rect x="80" y="260" width="12" height="16" rx="2"/>
+      <rect x="8" y="320" width="12" height="16" rx="2"/>
+      <rect x="80" y="320" width="12" height="16" rx="2"/>
+      <rect x="8" y="380" width="12" height="16" rx="2"/>
+      <rect x="80" y="380" width="12" height="16" rx="2"/>
+      <rect x="8" y="440" width="12" height="16" rx="2"/>
+      <rect x="80" y="440" width="12" height="16" rx="2"/>
+      <rect x="8" y="500" width="12" height="16" rx="2"/>
+      <rect x="80" y="500" width="12" height="16" rx="2"/>
+      <rect x="8" y="560" width="12" height="16" rx="2"/>
+      <rect x="80" y="560" width="12" height="16" rx="2"/>
+    </g>
+  </svg>
+
+  <div class="hero-content">
+    <span class="eyebrow"><span class="dot"></span> Live Cohort-Based Classes · Enrolling Now</span>
+    <h1 class="serif">Write the script<br/>the world <em>remembers.</em></h1>
+    <p class="hero-lead">Script School is where aspiring screenwriters become working screenwriters. Live mentorship, intimate cohorts, and real industry feedback — from idea to finished draft.</p>
+    <div class="hero-actions">
+      <a href="https://scriptschool.org/courses/" class="btn-primary">Browse Courses →</a>
+      <a href="https://scriptschool.org/private-consultations/" class="btn-ghost">Book a Consultation</a>
+    </div>
+
+    <div class="hero-meta">
+      <div>
+        <div class="stat-num serif">8</div>
+        <div class="stat-label">Max Students per Cohort</div>
+      </div>
+      <div>
+        <div class="stat-num serif">1:1</div>
+        <div class="stat-label">Mentorship Available</div>
+      </div>
+      <div>
+        <div class="stat-num serif">Live</div>
+        <div class="stat-label">Interactive Sessions</div>
+      </div>
+      <div>
+        <div class="stat-num serif">100%</div>
+        <div class="stat-label">Industry-Led Instruction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Screenwriting 101</span>
+    <span>TV Pilot Lab</span>
+    <span>Horror Screenplay</span>
+    <span>Feature Film Writing</span>
+    <span>Pitching & Packaging</span>
+    <span>Casting Workshop</span>
+    <span>Script Mentorship</span>
+    <span>Youth Programs</span>
+    <span>Screenwriting 101</span>
+    <span>TV Pilot Lab</span>
+    <span>Horror Screenplay</span>
+    <span>Feature Film Writing</span>
+    <span>Pitching & Packaging</span>
+    <span>Casting Workshop</span>
+    <span>Script Mentorship</span>
+    <span>Youth Programs</span>
+  </div>
+</div>
+
+<!-- COURSES -->
+<section class="courses" id="courses">
+  <div class="container">
+    <div class="section-label">Featured Cohorts</div>
+    <h2 class="section-title serif">Live courses, small <em>cohorts</em>,<br/>real industry feedback.</h2>
+    <p class="section-sub">Every class is taught live by a working industry professional. Eight students max. Peer-to-peer learning. No pre-recorded fluff.</p>
+
+    <div class="cards">
+      <!-- Card 1 -->
+      <article class="card fade-in">
+        <div class="card-img">
+          <span class="card-tag">Screenwriting</span>
+          <img src="https://scriptschool.org/wp-content/uploads/2025/08/pexels-ron-lach-8085942-1024x683.jpg" alt="Screenwriting 101" />
+        </div>
+        <div class="card-body">
+          <div class="card-date">Starts February 1st</div>
+          <h3 class="card-title serif">Screenwriting 101</h3>
+          <ul class="card-meta">
+            <li>Weekly course — 3 hours every Saturday</li>
+            <li>Max 8 students · peer-to-peer learning</li>
+            <li>Sundays at 9am – 12pm CST</li>
+          </ul>
+          <div class="card-footer">
+            <div class="price serif">$99</div>
+            <a class="view-btn" href="https://scriptschool.org/courses/screenwriting-101/">View Course <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card fade-in">
+        <div class="card-img">
+          <span class="card-tag">Acting</span>
+          <img src="https://scriptschool.org/wp-content/uploads/2026/01/pexels-cottonbro-6877431-1024x683.jpg" alt="Acting Class" />
+        </div>
+        <div class="card-body">
+          <div class="card-date">Starts January 31st</div>
+          <h3 class="card-title serif">Acting Class</h3>
+          <ul class="card-meta">
+            <li>Four-week course · 12 hours total</li>
+            <li>Max 8 students · peer-to-peer learning</li>
+            <li>Sundays at 4pm – 6pm PST</li>
+          </ul>
+          <div class="card-footer">
+            <div class="price serif">$99</div>
+            <a class="view-btn" href="https://scriptschool.org/courses/acting-class/">View Course <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card fade-in">
+        <div class="card-img">
+          <span class="card-tag">Horror</span>
+          <img src="https://scriptschool.org/wp-content/uploads/2025/08/pexels-cottonbro-5435459-1024x683.jpg" alt="Horror Screenplay Writing" />
+        </div>
+        <div class="card-body">
+          <div class="card-date">Starts January 28th</div>
+          <h3 class="card-title serif">Horror Screenplay Writing</h3>
+          <ul class="card-meta">
+            <li>Three-week course · 9 hours total</li>
+            <li>Max 8 students · peer-to-peer learning</li>
+            <li>Wednesdays at 6pm – 8pm PST</li>
+          </ul>
+          <div class="card-footer">
+            <div class="price serif">$299</div>
+            <a class="view-btn" href="https://scriptschool.org/courses/horror-movie-screenplay-writing/">View Course <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS GRID -->
+<section class="programs">
+  <div class="container">
+    <div class="section-label">Everything We Offer</div>
+    <h2 class="section-title serif">From blank page to <em>produced</em> script.</h2>
+    <p class="section-sub">Choose your path. Every program is built around finishing real work — not just talking about it.</p>
+
+    <div class="program-grid">
+      <div class="program-block">
+        <h3>Screenwriting Courses</h3>
+        <ul>
+          <li><a href="https://scriptschool.org/courses/">Screenwriting 101</a></li>
+          <li><a href="https://scriptschool.org/courses/tv-pilot-lab/">TV Pilot Lab</a></li>
+          <li><a href="https://scriptschool.org/courses/horror-movie-screenplay-writing/">Horror Movie Screenplay Writing</a></li>
+          <li><a href="https://scriptschool.org/courses/">Feature Film Writing</a></li>
+          <li><a href="https://scriptschool.org/courses/">Write Your Feature</a></li>
+        </ul>
+      </div>
+
+      <div class="program-block">
+        <h3>Film Industry & Production</h3>
+        <ul>
+          <li><a href="https://scriptschool.org/courses/">Pitching & Packaging</a></li>
+          <li><a href="https://scriptschool.org/courses/">How to Raise Money for Your First Movie</a></li>
+          <li><a href="https://scriptschool.org/courses/">Casting Director Workshop</a></li>
+          <li><a href="https://scriptschool.org/courses/">Getting Your Script Made Masterclass</a></li>
+        </ul>
+      </div>
+
+      <div class="program-block">
+        <h3>Mentorship & Consultation</h3>
+        <ul>
+          <li><a href="https://scriptschool.org/private-consultations/">Private Script Consultation</a></li>
+          <li><a href="https://scriptschool.org/about-us/">Screenplay Mentorship</a></li>
+          <li><a href="https://scriptschool.org/about-us/">Filmmaking Mentorship</a></li>
+          <li><a href="https://scriptschool.org/private-consultations/">Creative Coaching</a></li>
+        </ul>
+      </div>
+
+      <div class="program-block">
+        <h3>Youth & Beginners</h3>
+        <ul>
+          <li><a href="https://scriptschool.org/youth-programs/">Youth Filmmaking Programs</a></li>
+          <li><a href="https://scriptschool.org/courses/">Beginner Screenwriting</a></li>
+        </ul>
+      </div>
+
+      <div class="program-block">
+        <h3>Resources & Blog</h3>
+        <ul>
+          <li><a href="https://scriptschool.org/are-screenwriters-in-high-demand/">Are Screenwriters in High Demand?</a></li>
+          <li><a href="https://scriptschool.org/what-are-the-3-cs-of-screenwriting/">What Are the 3 C's of Screenwriting?</a></li>
+          <li><a href="https://scriptschool.org/blog/">All Blog Posts</a></li>
+        </ul>
+      </div>
+
+      <div class="program-block">
+        <h3>Learn More</h3>
+        <ul>
+          <li><a href="https://scriptschool.org/">Home</a></li>
+          <li><a href="https://scriptschool.org/about-us/">About Script School</a></li>
+          <li><a href="https://scriptschool.org/courses/">All Courses</a></li>
+          <li><a href="https://scriptschool.org/private-consultations/">Private Consultations</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<section class="article">
+  <div class="container">
+    <div class="section-label">Featured Article · Complete Guide</div>
+    <h2 class="section-title serif">Why Screenwriting Courses Are the <em>Smartest Investment</em> for Aspiring Writers</h2>
+    <p class="section-sub">A complete guide to learning screenwriting, finishing scripts, and breaking into film & television.</p>
+
+    <div class="article-wrap">
+      <div class="article-body">
+        <h2 class="serif">Every Great Screenplay Starts With a Writer Who Decides to Learn the Craft</h2>
+        <p class="dropcap">Somewhere in the world right now, someone is opening a blank document and starting their first screenplay. They have an idea they believe in. A character they can't stop thinking about. A scene they can already picture on the big screen.</p>
+        
+        <p>That excitement is where every screenwriter begins. Yet very few aspiring writers ever reach the point where their screenplay feels truly professional. Not because they lack imagination. Not because they don't work hard. But because screenwriting is far more complex than most people realize.</p>
+        
+        <p>A screenplay isn't simply a story written in screenplay format. It's a carefully engineered emotional experience built through structure, pacing, character development, dialogue, conflict, and visual storytelling. Learning those skills takes time.</p>
+        
+        <blockquote>The question is: do you want to spend years figuring everything out alone, or do you want to learn from people who already understand the craft?</blockquote>
+        
+        <p>This is why <a href="https://scriptschool.org/courses/">screenwriting courses</a>, <a href="https://scriptschool.org/about-us/">mentorship programs</a>, <a href="https://scriptschool.org/private-consultations/">screenplay consultations</a>, and professional feedback have become essential tools for aspiring writers. They shorten the learning curve, eliminate unnecessary mistakes, and help writers transform raw ideas into compelling scripts.</p>
+
+        <h2 class="serif">The Hidden Reason Most Aspiring Screenwriters Struggle</h2>
+        <p>Many writers assume their biggest challenge is creativity. In reality, creativity is rarely the problem. The real challenge is execution. Most aspiring writers have plenty of ideas. What they lack is a reliable process for turning those ideas into finished screenplays.</p>
+        
+        <h3>Common obstacles include:</h3>
+        <ul>
+          <li><strong>Not Knowing Where to Start</strong> — The idea feels exciting, but the first page feels intimidating.</li>
+          <li><strong>Losing Momentum</strong> — The beginning works, but the story becomes difficult to sustain.</li>
+          <li><strong>Weak Character Development</strong> — Characters feel flat or inconsistent.</li>
+          <li><strong>Dialogue Problems</strong> — Conversations don't sound authentic or purposeful.</li>
+          <li><strong>Endless Rewriting</strong> — Draft after draft still doesn't feel right.</li>
+          <li><strong>Lack of Feedback</strong> — Writers have no objective way to evaluate their work.</li>
+        </ul>
+        
+        <p>These challenges affect nearly every screenwriter at some point. The difference is that successful writers seek solutions instead of struggling alone. Explore our <a href="https://scriptschool.org/what-are-the-3-cs-of-screenwriting/">guide on the 3 C's of screenwriting</a> to strengthen your foundations.</p>
+
+        <h2 class="serif">Why Learning Screenwriting Is Similar to Learning Any Professional Skill</h2>
+        <p>Imagine trying to become a pilot without training. Or a filmmaker without studying directing. Or a musician without learning technique. Screenwriting is no different. Professional screenwriters develop specific skills:</p>
+        <ul>
+          <li>Story structure</li>
+          <li>Character arcs</li>
+          <li>Dialogue writing</li>
+          <li>Scene construction</li>
+          <li>Visual storytelling</li>
+          <li>Revision techniques</li>
+          <li>Audience psychology</li>
+        </ul>
+        <p>These aren't mysterious talents. They're learnable abilities. The best <a href="https://scriptschool.org/courses/">screenwriting courses</a> focus on helping writers develop these skills systematically using proven storytelling methods used throughout the film and television industry.</p>
+
+        <h2 class="serif">Why Online Screenwriting Courses Are More Popular Than Ever</h2>
+        <p>The rise of online learning has transformed creative education. Aspiring writers no longer need to relocate or attend expensive traditional film schools to learn from experienced professionals. Today's <a href="https://scriptschool.org/courses/">online screenwriting courses</a> offer flexible schedules, professional instruction, global access, mentorship opportunities, writing workshops, and feedback systems.</p>
+        
+        <p>For many writers, this creates the ideal learning environment. They can continue working, studying, or managing personal responsibilities while developing their screenwriting skills.</p>
+
+        <h2 class="serif">Screenwriting for Beginners: The Skills Every Writer Must Master</h2>
+        <p>Before writing an award-winning screenplay, writers need strong fundamentals. Professional screenwriting training typically begins with core concepts such as <strong>Story Structure</strong>, <strong>Character Development</strong>, <strong>Conflict</strong>, <strong>Dialogue</strong>, <strong>Scene Design</strong>, and <strong>Screenplay Formatting</strong>.</p>
+        
+        <p>These skills form the foundation of every successful screenplay. Without them, even great ideas can struggle. Our <a href="https://scriptschool.org/courses/screenwriting-101/">Screenwriting 101</a> course is built around these exact fundamentals.</p>
+
+        <h2 class="serif">Why Story Structure Is the Most Important Screenwriting Skill</h2>
+        <p>If there's one concept every aspiring writer should study, it's structure. Structure provides the framework that supports the entire screenplay. Strong structure helps writers maintain pacing, build suspense, escalate conflict, develop character arcs, and deliver emotional payoffs.</p>
+        
+        <p>Without structure, stories often lose direction. Scenes become repetitive. The middle drags. The ending feels rushed. This is why virtually every professional screenwriting course emphasizes storytelling architecture.</p>
+
+        <h2 class="serif">How Character Development Creates Emotional Connection</h2>
+        <p>People remember characters. Long after specific plot details fade, memorable characters remain. Why? Because stories are ultimately about people. Strong characters possess clear goals, internal flaws, emotional needs, personal conflicts, and meaningful growth.</p>
+        
+        <p>The audience experiences the story through these characters. When characters feel authentic, the audience becomes emotionally invested. Learn more in our article about <a href="https://scriptschool.org/what-are-the-3-cs-of-screenwriting/">character, conflict, and concept</a>.</p>
+
+        <h2 class="serif">The Art of Writing Great Dialogue</h2>
+        <p>Dialogue is one of the most misunderstood elements of screenwriting. Many new writers assume dialogue should sound exactly like real conversation. Professional writers know that's not always true. Effective screenplay dialogue reveals character, creates conflict, advances the story, builds relationships, and communicates subtext.</p>
+        
+        <p>Great dialogue often says less than the characters actually mean. Learning this skill requires practice, feedback, and analysis — one reason <a href="https://scriptschool.org/private-consultations/">screenplay consultation</a> and mentorship can be so valuable.</p>
+
+        <h2 class="serif">Writing for Television: Why TV Pilots Are Different</h2>
+        <p>Television continues to be one of the fastest-growing opportunities for screenwriters. Streaming services constantly seek original content. However, television writing requires a unique approach. A strong TV pilot must establish a compelling world, introduce memorable characters, present ongoing conflict, create future story possibilities, and encourage viewers to continue watching.</p>
+        
+        <p>Our specialized <a href="https://scriptschool.org/courses/tv-pilot-lab/">TV Pilot Lab</a> helps writers understand episodic storytelling, season planning, character ensembles, pilot structure, and long-term narrative development.</p>
+
+        <h2 class="serif">Feature Film Writing: Building Stories for the Big Screen</h2>
+        <p>Feature films present different challenges. Unlike television, feature screenplays must deliver a complete narrative within a single script. This requires strong pacing, clear character arcs, effective structure, emotional progression, and satisfying resolution. Mastering feature storytelling remains one of the most valuable skills a screenwriter can develop.</p>
+        
+        <p>Discover whether screenwriting is the right career for you in our breakdown: <a href="https://scriptschool.org/are-screenwriters-in-high-demand/">Are Screenwriters in High Demand?</a></p>
+
+        <h2 class="serif">Why Genre-Specific Screenwriting Training Matters</h2>
+        <p>Different genres demand different storytelling techniques. A horror screenplay creates fear. A thriller creates suspense. A comedy creates laughter. A drama creates emotional connection. Understanding genre expectations helps writers create stronger stories.</p>
+        
+        <p>Our <a href="https://scriptschool.org/courses/horror-movie-screenplay-writing/">horror screenplay writing course</a> focuses on suspense, atmosphere, tension, escalation, and audience anticipation. Genre-focused education allows writers to explore specific storytelling mechanics while developing their own creative voice.</p>
+
+        <h2 class="serif">The Value of Screenwriting Mentorship</h2>
+        <p>One of the fastest ways to improve as a writer is through mentorship. Why? Because mentors provide personalized guidance. A <a href="https://scriptschool.org/about-us/">screenwriting mentor</a> can review your work, identify weaknesses, recommend improvements, provide accountability, and share professional insights.</p>
+        
+        <p>Many writers spend months solving problems that an experienced mentor could identify within minutes. This is why <a href="https://scriptschool.org/private-consultations/">screenwriting mentorship</a> remains one of the most effective investments aspiring writers can make.</p>
+
+        <h2 class="serif">Why Screenplay Feedback Is Essential</h2>
+        <p>Professional writers receive notes constantly. Feedback is not a sign of failure. It's a critical part of the creative process. Constructive <a href="https://scriptschool.org/private-consultations/">screenplay feedback</a> helps writers improve pacing, strengthen characters, clarify themes, refine dialogue, and enhance structure.</p>
+        
+        <p>Without feedback, writers often repeat the same mistakes. Fresh perspectives reveal opportunities for improvement that would otherwise remain hidden.</p>
+
+        <h2 class="serif">Screenplay Consultation: Getting Professional Insight</h2>
+        <p>A screenplay consultation provides targeted feedback from experienced professionals. Unlike general feedback, consultations focus on specific storytelling challenges: story structure, character development, dialogue, pacing, market positioning, and revision strategies.</p>
+        
+        <p>Book a <a href="https://scriptschool.org/private-consultations/">private consultation</a> and get professional insight to develop a clear plan for improvement.</p>
+
+        <h2 class="serif">Why Understanding Filmmaking Makes You a Better Writer</h2>
+        <p>Screenwriters benefit from understanding filmmaking as a whole — directing, editing, cinematography, production, and visual storytelling. Writers who understand filmmaking create more cinematic scripts because they recognize how stories function on screen.</p>
+        
+        <p>Explore our <a href="https://scriptschool.org/courses/">production training programs</a> including Pitching & Packaging, Casting Director Workshop, and How to Raise Money for Your First Movie.</p>
+
+        <h2 class="serif">Building a Screenwriting Portfolio That Gets Attention</h2>
+        <p>A professional portfolio demonstrates your abilities. Strong portfolios often include feature screenplays, television pilots, short films, and genre samples. The goal is not simply volume — the goal is quality. A strong portfolio showcases storytelling ability, technical skill, creative range, and professional discipline.</p>
+
+        <h2 class="serif">Why Successful Screenwriters Never Stop Learning</h2>
+        <p>The most accomplished writers continue studying their craft. They read scripts, analyze films, seek feedback, attend workshops, work with mentors, and experiment with new techniques. They understand that storytelling is a lifelong discipline. Growth never stops.</p>
+        
+        <p>The willingness to keep learning often becomes a competitive advantage. Check our <a href="https://scriptschool.org/blog/">blog</a> for ongoing resources.</p>
+
+        <h2 class="serif">The Future Belongs to Skilled Storytellers</h2>
+        <p>The entertainment industry continues evolving. Platforms change. Technology advances. Audience preferences shift. Yet one thing remains constant: great stories matter. Organizations, studios, producers, and audiences will always need compelling storytellers.</p>
+        
+        <p>Writers who invest in developing their craft create opportunities that extend far beyond a single screenplay.</p>
+
+        <h2 class="serif">Ready to Become a Better Screenwriter?</h2>
+        <p>Whether you're learning screenwriting for the first time, looking for the best online screenwriting courses, developing a TV pilot, writing a feature film, seeking screenplay feedback, working with a screenwriting mentor, exploring filmmaking education, or building a professional portfolio — the most important step is starting.</p>
+        
+        <p>Every successful writer began as a beginner. The difference is that they committed to learning, invested in their craft, sought guidance, and continued improving. If you're serious about screenwriting, now is the perfect time to develop the skills that can transform your ideas into compelling, professional stories.</p>
+        
+        <blockquote>Because the screenplay you've been dreaming about deserves more than good intentions. It deserves the best version of you as a writer.</blockquote>
+      </div>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <h4 class="serif">Featured Courses</h4>
+          <ul>
+            <li><a href="https://scriptschool.org/courses/screenwriting-101/">→ Screenwriting 101</a></li>
+            <li><a href="https://scriptschool.org/courses/tv-pilot-lab/">→ TV Pilot Lab</a></li>
+            <li><a href="https://scriptschool.org/courses/horror-movie-screenplay-writing/">→ Horror Screenplay</a></li>
+            <li><a href="https://scriptschool.org/courses/acting-class/">→ Acting Class</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h4 class="serif">Popular Reads</h4>
+          <ul>
+            <li><a href="https://scriptschool.org/are-screenwriters-in-high-demand/">→ Are Screenwriters in Demand?</a></li>
+            <li><a href="https://scriptschool.org/what-are-the-3-cs-of-screenwriting/">→ The 3 C's of Screenwriting</a></li>
+            <li><a href="https://scriptschool.org/blog/">→ More on the Blog</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-cta">
+          <h4 class="serif">Get personal feedback on your script.</h4>
+          <p>Book a 1-on-1 private consultation with a working screenwriter.</p>
+          <a href="https://scriptschool.org/private-consultations/">Book Consultation</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="section-label">Frequently Asked</div>
+    <h2 class="section-title serif">Your questions, <em>answered.</em></h2>
+    <p class="section-sub">Everything aspiring writers ask before they enroll.</p>
+
+    <div class="faq-list">
+      <details>
+        <summary>What are the best screenwriting courses for beginners?</summary>
+        <p>The best courses teach story structure, character development, dialogue, scene construction, formatting, and revision techniques while providing feedback and mentorship opportunities. Start with <a href="https://scriptschool.org/courses/screenwriting-101/" style="color:inherit;text-decoration:underline;">Screenwriting 101</a>.</p>
+      </details>
+      <details>
+        <summary>Can I learn screenwriting online?</summary>
+        <p>Yes. Many aspiring writers successfully learn through <a href="https://scriptschool.org/courses/" style="color:inherit;text-decoration:underline;">online screenwriting courses</a>, mentorship programs, workshops, and practical writing experience.</p>
+      </details>
+      <details>
+        <summary>Why are screenwriting courses worth it?</summary>
+        <p>Structured education provides guidance, accountability, feedback, mentorship, and a proven learning framework that often accelerates growth significantly.</p>
+      </details>
+      <details>
+        <summary>What is screenplay consultation?</summary>
+        <p>A <a href="https://scriptschool.org/private-consultations/" style="color:inherit;text-decoration:underline;">screenplay consultation</a> provides professional analysis and feedback on your script, helping identify strengths, weaknesses, and opportunities for improvement.</p>
+      </details>
+      <details>
+        <summary>How important is screenwriting mentorship?</summary>
+        <p>Mentorship offers personalized guidance that helps writers solve problems faster and avoid common mistakes. Explore our <a href="https://scriptschool.org/about-us/" style="color:inherit;text-decoration:underline;">mentorship programs</a>.</p>
+      </details>
+      <details>
+        <summary>What should I learn first as a screenwriter?</summary>
+        <p>Start with story structure, character development, conflict, dialogue, scene construction, and screenplay formatting. Our <a href="https://scriptschool.org/what-are-the-3-cs-of-screenwriting/" style="color:inherit;text-decoration:underline;">3 C's guide</a> is a great place to start.</p>
+      </details>
+      <details>
+        <summary>What is the difference between a feature screenplay and a TV pilot?</summary>
+        <p>Feature screenplays tell complete stories, while TV pilots establish characters and storylines intended to continue across multiple episodes and seasons. Try our <a href="https://scriptschool.org/courses/tv-pilot-lab/" style="color:inherit;text-decoration:underline;">TV Pilot Lab</a> to learn the craft.</p>
+      </details>
+      <details>
+        <summary>How long does it take to become a screenwriter?</summary>
+        <p>Every writer develops at a different pace, but structured education, mentorship, and consistent practice often accelerate progress significantly.</p>
+      </details>
+      <details>
+        <summary>What is the fastest way to improve as a writer?</summary>
+        <p>Combine screenwriting courses, mentorship, screenplay feedback, practical writing experience, and consistent revision. <a href="https://scriptschool.org/courses/" style="color:inherit;text-decoration:underline;">Browse all programs</a>.</p>
+      </details>
+      <details>
+        <summary>Do you offer programs for teens and youth?</summary>
+        <p>Yes! We run hands-on filmmaking camps and after-school programs for ages 10–18 in Los Angeles, Austin, and San Francisco. Learn more at <a href="https://scriptschool.org/youth-programs/" style="color:inherit;text-decoration:underline;">Youth Programs</a>.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-label">Get in Touch</div>
+    <h2 class="section-title serif">Let's talk about <em>your script.</em></h2>
+    <p class="section-sub">Have a question about our courses, mentorship, or youth programs? We're based in Austin and love hearing from writers around the world.</p>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">✆</div>
+          <div>
+            <h5>Phone</h5>
+            <a href="tel:+15126125230">+1 (512) 612-5230</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉</div>
+          <div>
+            <h5>Email</h5>
+            <a href="mailto:contact@scriptschool.org">contact@scriptschool.org</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">⌘</div>
+          <div>
+            <h5>Location</h5>
+            <p>5900 Balcones Dr Suit 100,<br/>Austin, TX 78731, United States</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">◈</div>
+          <div>
+            <h5>Follow Along</h5>
+            <p style="font-family:'Inter',sans-serif;font-size:14px;">
+              <a href="https://www.facebook.com/scriptschoolUS" target="_blank" rel="noopener">Facebook</a> ·
+              <a href="https://www.instagram.com/script_school" target="_blank" rel="noopener">Instagram</a> ·
+              <a href="https://x.com/script_school" target="_blank" rel="noopener">X / Twitter</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13773.321545718049!2d-97.754955!3d30.341559000000004!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2bf2835640855%3A0xaa6dfd5f7f6ebc04!2sScript%20School!5e0!3m2!1sen!2sbd!4v1780220467395!5m2!1sen!2sbd" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="big-script serif">Write the story<br/>only <span>you</span> can tell.</div>
+
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="https://scriptschool.org/" class="logo">
+        <span class="logo-mark">S</span>
+        <span>Script School</span>
+      </a>
+      <p>An entertainment-based education company helping writers and young filmmakers bring their creative visions to life. Based in Austin, TX.</p>
+    </div>
+
+    <div class="footer-col">
+      <h6>Explore</h6>
+      <ul>
+        <li><a href="https://scriptschool.org/">Home</a></li>
+        <li><a href="https://scriptschool.org/courses/">Courses</a></li>
+        <li><a href="https://scriptschool.org/private-consultations/">Private Consultations</a></li>
+        <li><a href="https://scriptschool.org/youth-programs/">Youth Programs</a></li>
+        <li><a href="https://scriptschool.org/about-us/">About Us</a></li>
+        <li><a href="https://scriptschool.org/blog/">Blog</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h6>Programs</h6>
+      <ul>
+        <li><a href="https://scriptschool.org/courses/screenwriting-101/">Screenwriting 101</a></li>
+        <li><a href="https://scriptschool.org/courses/tv-pilot-lab/">TV Pilot Lab</a></li>
+        <li><a href="https://scriptschool.org/courses/horror-movie-screenplay-writing/">Horror Screenplay</a></li>
+        <li><a href="https://scriptschool.org/courses/acting-class/">Acting Class</a></li>
+        <li><a href="https://scriptschool.org/courses/">Feature Film Writing</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h6>Contact</h6>
+      <ul>
+        <li><a href="tel:+15126125230">+1 (512) 612-5230</a></li>
+        <li><a href="mailto:contact@scriptschool.org">contact@scriptschool.org</a></li>
+        <li><a href="https://maps.google.com/?q=5900+Balcones+Dr+Suit+100,+Austin,+TX+78731">5900 Balcones Dr, Austin TX</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 Script School · All rights reserved</p>
+    <div class="socials">
+      <a href="https://www.facebook.com/scriptschoolUS" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/script_school" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+      </a>
+      <a href="https://x.com/script_school" target="_blank" rel="noopener" aria-label="X">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
+
